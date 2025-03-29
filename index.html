@@ -88,11 +88,20 @@
                     <img class="w-[39px] sm:w-[28px] md:w-[45px] rounded-[50px]" src="./profile.png" alt="">
                 </div>
                 <div class="w-[100%]">
-                    <input id="set-post" class="outline-none border-none text-[11px] sm:text-[15px] md:text-[21px]" type="text" placeholder="What's happening?">
+                    <textarea class="w-[100%] resize-none h-27 outline-none border-none text-[11px] sm:text-[15px] md:text-[21px]" id="set-post" placeholder="What's happening?"></textarea>
+
+                    <!-- <input id="set-post" class="outline-none border text-[11px] sm:text-[15px] md:text-[21px]" type="text" placeholder="What's happening?"> -->
+                    
+                    
                     <div class="icons  p-[14px_0px] flex items-center justify-between">
                         <div class="lefticons hidden sm:flex gap-[4px] md:gap-[12px] ">
                             <div>
-                                <svg viewBox="0 0 24 24" aria-hidden="true" class="fill-current w-4 md:w-6 r-4qtqp9 r-yyyyoo r-dnmrzs r-bnwqim r-lrvibr r-m6rgpd r-z80fyv r-19wmn03" style="color: rgb(29, 155, 240);"><g><path d="M3 5.5C3 4.119 4.119 3 5.5 3h13C19.881 3 21 4.119 21 5.5v13c0 1.381-1.119 2.5-2.5 2.5h-13C4.119 21 3 19.881 3 18.5v-13zM5.5 5c-.276 0-.5.224-.5.5v9.086l3-3 3 3 5-5 3 3V5.5c0-.276-.224-.5-.5-.5h-13zM19 15.414l-3-3-5 5-3-3-3 3V18.5c0 .276.224.5.5.5h13c.276 0 .5-.224.5-.5v-3.086zM9.75 7C8.784 7 8 7.784 8 8.75s.784 1.75 1.75 1.75 1.75-.784 1.75-1.75S10.716 7 9.75 7z"></path></g></svg>
+                                <button class="z-59 bg-transparent cursor-pointer" id="pic-select">
+
+                                <input type="file" id="fileInput" class="hidden" accept="image/*">
+
+                                <svg viewBox="0 0 24 24" aria-hidden="true"  class="fill-current w-4 md:w-6 r-4qtqp9 r-yyyyoo r-dnmrzs r-bnwqim r-lrvibr r-m6rgpd r-z80fyv r-19wmn03" style="color: rgb(29, 155, 240);"><g><path d="M3 5.5C3 4.119 4.119 3 5.5 3h13C19.881 3 21 4.119 21 5.5v13c0 1.381-1.119 2.5-2.5 2.5h-13C4.119 21 3 19.881 3 18.5v-13zM5.5 5c-.276 0-.5.224-.5.5v9.086l3-3 3 3 5-5 3 3V5.5c0-.276-.224-.5-.5-.5h-13zM19 15.414l-3-3-5 5-3-3-3 3V18.5c0 .276.224.5.5.5h13c.276 0 .5-.224.5-.5v-3.086zM9.75 7C8.784 7 8 7.784 8 8.75s.784 1.75 1.75 1.75 1.75-.784 1.75-1.75S10.716 7 9.75 7z"></path></g></svg>
+                            </button>
                             </div>
                             <div>
                                 <svg viewBox="0 0 24 24" aria-hidden="true" class="w-4 md:w-6 fill-current r-4qtqp9 r-yyyyoo r-dnmrzs r-bnwqim r-lrvibr r-m6rgpd r-z80fyv r-19wmn03" style="color: rgb(29, 155, 240);"><g><path d="M3 5.5C3 4.119 4.12 3 5.5 3h13C19.88 3 21 4.119 21 5.5v13c0 1.381-1.12 2.5-2.5 2.5h-13C4.12 21 3 19.881 3 18.5v-13zM5.5 5c-.28 0-.5.224-.5.5v13c0 .276.22.5.5.5h13c.28 0 .5-.224.5-.5v-13c0-.276-.22-.5-.5-.5h-13zM18 10.711V9.25h-3.74v5.5h1.44v-1.719h1.7V11.57h-1.7v-.859H18zM11.79 9.25h1.44v5.5h-1.44v-5.5zm-3.07 1.375c.34 0 .77.172 1.02.43l1.03-.86c-.51-.601-1.28-.945-2.05-.945C7.19 9.25 6 10.453 6 12s1.19 2.75 2.72 2.75c.85 0 1.54-.344 2.05-.945v-2.149H8.38v1.032H9.4v.515c-.17.086-.42.172-.68.172-.76 0-1.36-.602-1.36-1.375 0-.688.6-1.375 1.36-1.375z"></path></g></svg>
@@ -484,9 +493,11 @@
         
         const btn = document.getElementById("post-btn")
         const post_text = document.getElementById("set-post")
+        let postImage = null;
         btn.addEventListener("click",()=>{
             let user_text = post_text.value;
             post_text.value = "";
+            
 
             // creating whole big div of post
             let container = document.createElement("div")
@@ -519,11 +530,25 @@
             let detailPost = document.createElement("div")
             detailPost.setAttribute("class","flex flex-col")
             let anotherDiv3 = document.createElement("div")
-            let para = document.createElement("p")
-            para.setAttribute("class","text-[11px] md:text-[16px]")
+            let para = document.createElement("pre")
+            para.setAttribute("class","text-[11px] md:text-[16px] font-sans")
             para.textContent = user_text
             anotherDiv3.append(para)
             detailPost.append(anotherDiv3)
+
+
+            // for image
+            if(postImage){
+                console.log("I have image!!!!")
+                let anotherDiv5 = document.createElement("div")
+                let imgTag = document.createElement("img")
+                imgTag.setAttribute("class","w-[99%] sm:w-[94%] mt-[10px]")
+                imgTag.src="./"+postImage.name;
+                anotherDiv5.append(imgTag);
+                detailPost.append(anotherDiv5)
+            }
+            
+            
 
             let anotherDiv4 = document.createElement("div")
             anotherDiv4.setAttribute("class","flex justify-around mt-[10px]")
@@ -548,8 +573,30 @@
 
             const postArea = document.querySelector(".postsArea");
             postArea.insertAdjacentElement("afterbegin",container)
+
+
+            
+
         })
 
+        // btns part
+
+        
+
+        const pic_btn = document.getElementById("pic-select")
+            pic_btn.addEventListener("click",()=>{
+                document.getElementById("fileInput").click();
+            })  
+
+            document.getElementById("fileInput").addEventListener("change", function(event) {
+        const file = event.target.files[0];
+        if (file) {
+            console.log("previous postimage val: ",postImage)
+            postImage = file
+            console.log("updated postimage val: ",postImage)
+
+        }
+    });
     
 
     </script>
